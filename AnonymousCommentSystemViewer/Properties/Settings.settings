@@ -9,7 +9,7 @@
       <Value Profile="(Default)">default</Value>
     </Setting>
     <Setting Name="thread_id" Type="System.String" Scope="User">
-      <Value Profile="(Default)">kaigi1505</Value>
+      <Value Profile="(Default)">default</Value>
     </Setting>
     <Setting Name="Window_Left" Type="System.Double" Scope="User">
       <Value Profile="(Default)">10</Value>

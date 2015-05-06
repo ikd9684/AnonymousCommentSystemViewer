@@ -33,6 +33,17 @@ namespace AnonymousCommentSystemViewer
         private static readonly int speed;
         /// <summary></summary>
         private static readonly FontFamily fontFamily;
+        /// <summary></summary>
+        private static string threadID;
+        /// <summary></summary>
+        private static string last;
+        /// <summary></summary>
+        private const string YYYYMMDD = "yyyy/MM/dd HH:mm:ss.fff";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static bool isChangedThreadID = false;
 
         /// <summary>
         /// 
@@ -45,7 +56,11 @@ namespace AnonymousCommentSystemViewer
 
             if (Properties.Settings.Default.since_startup)
             {
-                last = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff");
+                last = DateTime.Now.ToString(YYYYMMDD);
+            }
+            else
+            {
+                last = string.Empty;
             }
         }
 
@@ -67,12 +82,12 @@ namespace AnonymousCommentSystemViewer
 
             Width = Properties.Settings.Default.Window_Width;
 
-            this.lblThreadID.Content = Properties.Settings.Default.thread_id;
+            threadID = Properties.Settings.Default.thread_id;
+            this.txtThreadID.Text = threadID;
 
             StartEnqueueCommentLoop();
         }
 
-        private static string last = string.Empty;
         /// <summary>
         /// 
         /// </summary>
@@ -91,7 +106,7 @@ namespace AnonymousCommentSystemViewer
                     return;
                 }
 
-                List<Comment> commentList = CommentsRequest.getCommentList(last);
+                List<Comment> commentList = CommentsRequest.getCommentList(this.txtThreadID.Text, last);
                 if (commentList.Count == 0)
                 {
                     return;
@@ -105,6 +120,7 @@ namespace AnonymousCommentSystemViewer
                     // ひとつのコメントが流れ終わるのを待つ
 
                     String commentString = comment.comment;
+                    Console.WriteLine("{0}: {1}", comment.threadID, comment.comment);
 
                     TextBlock textBlock = new TextBlock();
                     textBlock.FontFamily = fontFamily;
@@ -119,11 +135,17 @@ namespace AnonymousCommentSystemViewer
 
                     textBlock.RenderTransform = transform;
                     Duration duration = new Duration(TimeSpan.FromMilliseconds(durationTime));
-                    DoubleAnimation animationX = new DoubleAnimation(-1 * commentString.Length * fontSize, duration);
+                    DoubleAnimation animationX = new DoubleAnimation(-1 * (commentString.Length + 1) * fontSize, duration);
 
                     transform.BeginAnimation(TranslateTransform.XProperty, animationX);
 
                     await Task.Delay(durationTime - ((int)this.Width / 2 * speed));
+
+                    if (isChangedThreadID)
+                    {
+                        isChangedThreadID = false;
+                        break;
+                    }
                 }
 
                 loop = false;
@@ -143,6 +165,7 @@ namespace AnonymousCommentSystemViewer
             Properties.Settings.Default.Window_Left = Left;
             Properties.Settings.Default.Window_Top = Top;
             Properties.Settings.Default.Window_Width = Width;
+            Properties.Settings.Default.thread_id = this.txtThreadID.Text;
             // ファイルに保存
             Properties.Settings.Default.Save();
         }
@@ -165,6 +188,57 @@ namespace AnonymousCommentSystemViewer
         private void ClickBtnClose(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DoubleClickTxtThreadID(object sender, MouseButtonEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (textBox.IsReadOnly)
+            {
+                textBox.IsReadOnly = false;
+                textBox.BorderThickness = new Thickness(1);
+            }
+        }
+
+        private static void OnLostFocusTxtThreadID(object sender)
+        {
+            TextBox textBox = (TextBox)sender;
+            textBox.IsReadOnly = true;
+            textBox.BorderThickness = new Thickness(0);
+
+            if (threadID != textBox.Text)
+            {
+                isChangedThreadID = true;
+
+                threadID = textBox.Text;
+                last = DateTime.Now.ToString(YYYYMMDD);
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LostFocusTxtThreadID(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            OnLostFocusTxtThreadID(sender);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void KeyDownOnTxtThreadID(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                OnLostFocusTxtThreadID(sender);
+            }
         }
 
     }

@@ -46,7 +46,7 @@ namespace AnonymousCommentSystemViewer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("kaigi1505")]
+        [global::System.Configuration.DefaultSettingValueAttribute("default")]
         public string thread_id {
             get {
                 return ((string)(this["thread_id"]));

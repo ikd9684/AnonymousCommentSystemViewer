@@ -45,8 +45,6 @@ namespace AnonymousCommentSystemViewer.classes
         private static readonly string baseurl;
         /// <summary></summary>
         private static readonly string default_thread_id;
-        /// <summary></summary>
-        private static readonly string thread_id;
 
         /// <summary>
         /// 
@@ -55,16 +53,15 @@ namespace AnonymousCommentSystemViewer.classes
         {
             baseurl = Properties.Settings.Default.baseuri;
             default_thread_id = Properties.Settings.Default.default_thread_id;
-            thread_id = Properties.Settings.Default.thread_id;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public static List<Comment> getCommentList(string last)
+        public static List<Comment> getCommentList(string threadID, string last)
         {
-            string url = string.Format("{0}{1}?last={2}", baseurl, thread_id, last);
+            string url = string.Format("{0}{1}?last={2}", baseurl, threadID, last);
 
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
             req.Headers["X-requested-with"] = "Application";

@@ -13,22 +13,30 @@
         <ResourceDictionary Source="CaptionButtonStyleKey.xaml"/>
     </Window.Resources>
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="{x:Static SystemParameters.CaptionHeight}"
+        <WindowChrome CaptionHeight="0"
                       ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}"
                       UseAeroCaptionButtons="False"/>
     </WindowChrome.WindowChrome>
     <Border BorderBrush="Black" BorderThickness="1">
         <Grid>
             <Canvas x:Name="BaseCanvas">
-                <Label x:Name="lblThreadID" Content="ThreadID" Foreground="White" Height="16" Padding="0" FontSize="12" Canvas.Left="3" Canvas.Top="1"/>
+                <TextBox x:Name="txtThreadID" Height="16" Canvas.Top="1" Canvas.Left="3" TextWrapping="Wrap"
+                         Text="ThreadID"
+                         Background="Transparent" Foreground="White" BorderThickness="0"
+                         IsReadOnly="True"
+                         MouseDoubleClick="DoubleClickTxtThreadID"
+                         LostKeyboardFocus="LostFocusTxtThreadID"
+                         KeyDown="KeyDownOnTxtThreadID" ToolTip="ThreadIDをダブルクリックすると変更可能になります。" />
             </Canvas>
             <StackPanel Orientation="Horizontal" Margin="5"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top">
-                <Button x:Name="BtnMinimize" Content="0" Style="{DynamicResource CaptionButtonStyleKey}" Click="ClickBtnMinimize" />
+                <Button x:Name="BtnMinimize" Content="0"
+                        Style="{DynamicResource CaptionButtonStyleKey}" Click="ClickBtnMinimize" />
                 <!--<Button Content="1" Style="{DynamicResource CaptionButtonStyleKey}" />-->
                 <!--<Button Content="2" Style="{DynamicResource CaptionButtonStyleKey}" />-->
-                <Button x:Name="BtnClose" Content="r" Style="{DynamicResource CaptionButtonStyleKey}" Click="ClickBtnClose" />
+                <Button x:Name="BtnClose" Content="r"
+                        Style="{DynamicResource CaptionButtonStyleKey}" Click="ClickBtnClose" />
             </StackPanel>
         </Grid>
     </Border>
