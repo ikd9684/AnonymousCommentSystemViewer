@@ -23,6 +23,8 @@ namespace AnonymousCommentSystemViewer
         {
             InitializeComponent();
 
+            this.PreviewKeyDown += new KeyEventHandler(OnKeyDown);
+
             base.Owner = owner_;
         }
 
@@ -44,6 +46,19 @@ namespace AnonymousCommentSystemViewer
         private void ClickHyperlink(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
             System.Diagnostics.Process.Start(e.Uri.AbsoluteUri);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Close();
+            }
         }
     }
 }

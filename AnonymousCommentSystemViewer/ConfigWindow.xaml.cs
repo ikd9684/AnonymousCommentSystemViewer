@@ -28,6 +28,7 @@ namespace AnonymousCommentSystemViewer
             base.Owner = owner_;
             this.owner = owner_;
 
+            this.PreviewKeyDown += new KeyEventHandler(OnKeyDown);
             this.MouseLeftButtonDown += (sender, e) => this.DragMove();
 
             this.TxtThreadID.Text = owner.txtThreadID.Text;
@@ -144,6 +145,19 @@ namespace AnonymousCommentSystemViewer
             if (this.BtnApply != null)
             {
                 this.BtnApply.IsEnabled = true;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Close();
             }
         }
 
