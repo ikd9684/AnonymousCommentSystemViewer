@@ -23,7 +23,7 @@
                 <ContextMenuService.ContextMenu >
                     <ContextMenu>
                         <MenuItem Header="設定" Click="OpenConfigWindow" />
-                        <MenuItem Header="このアプリケーションについて" />
+                        <MenuItem Header="このアプリケーションについて" Click="OpenAboutWindow" />
                         <Separator />
                         <MenuItem Header="終了" Click="ClickBtnClose" />
                     </ContextMenu>

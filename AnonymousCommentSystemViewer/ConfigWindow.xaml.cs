@@ -25,6 +25,7 @@ namespace AnonymousCommentSystemViewer
         {
             InitializeComponent();
 
+            base.Owner = owner_;
             this.owner = owner_;
 
             this.MouseLeftButtonDown += (sender, e) => this.DragMove();

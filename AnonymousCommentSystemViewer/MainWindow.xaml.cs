@@ -269,6 +269,17 @@ namespace AnonymousCommentSystemViewer
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenAboutWindow(object sender, RoutedEventArgs e)
+        {
+            AboutWindow aboutWindow = new AboutWindow(this);
+            aboutWindow.ShowDialog();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="message"></param>
         /// <param name="parameters"></param>
         private static void Debug(string message, params object[] parameters)
