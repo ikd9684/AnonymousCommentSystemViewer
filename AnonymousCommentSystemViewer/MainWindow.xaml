@@ -24,6 +24,7 @@
                          Text="ThreadID"
                          Background="Transparent" Foreground="White" BorderThickness="0"
                          IsReadOnly="True"
+                         InputMethod.IsInputMethodSuspended="True"
                          MouseDoubleClick="DoubleClickTxtThreadID"
                          LostKeyboardFocus="LostFocusTxtThreadID"
                          KeyDown="KeyDownOnTxtThreadID" ToolTip="ThreadIDをダブルクリックすると変更可能です。" />

@@ -25,20 +25,21 @@ namespace AnonymousCommentSystemViewer
     public partial class MainWindow : Window
     {
         /// <summary></summary>
+        private const string YYYYMMDD = "yyyy/MM/dd HH:mm:ss.fff";
+
+        /// <summary></summary>
         private DispatcherTimer timer = null;
 
         /// <summary></summary>
-        private static readonly double fontSize;
+        private readonly double fontSize;
         /// <summary></summary>
-        private static readonly int speed;
+        private readonly int speed;
         /// <summary></summary>
-        private static readonly FontFamily fontFamily;
+        private readonly FontFamily fontFamily;
         /// <summary></summary>
-        private static string threadID;
+        private string threadID;
         /// <summary></summary>
-        private static string last;
-        /// <summary></summary>
-        private const string YYYYMMDD = "yyyy/MM/dd HH:mm:ss.fff";
+        private string last;
 
         /// <summary>
         /// 
@@ -48,8 +49,10 @@ namespace AnonymousCommentSystemViewer
         /// <summary>
         /// 
         /// </summary>
-        static MainWindow()
+        public MainWindow()
         {
+            InitializeComponent();
+
             fontSize = Properties.Settings.Default.font_size;
             speed = Properties.Settings.Default.speed;
             fontFamily = new FontFamily(Properties.Settings.Default.font_family);
@@ -62,16 +65,9 @@ namespace AnonymousCommentSystemViewer
             {
                 last = string.Empty;
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public MainWindow()
-        {
-            InitializeComponent();
 
             this.MouseLeftButtonDown += (sender, e) => this.DragMove();
+            this.MouseLeftButtonDown += (sender, e) => this.OnLostFocusTxtThreadID();
 
             Brush BK = Brushes.Black.Clone();
             BK.Opacity = Properties.Settings.Default.opacity;
@@ -120,7 +116,7 @@ namespace AnonymousCommentSystemViewer
                     // ひとつのコメントが流れ終わるのを待つ
 
                     String commentString = comment.comment;
-                    Console.WriteLine("{0}: {1}", comment.threadID, comment.comment);
+                    Debug("{0}: {1}", comment.threadID, comment.comment);
 
                     TextBlock textBlock = new TextBlock();
                     textBlock.FontFamily = fontFamily;
@@ -209,22 +205,31 @@ namespace AnonymousCommentSystemViewer
         /// 
         /// </summary>
         /// <param name="sender"></param>
-        private static void OnLostFocusTxtThreadID(object sender)
+        private void OnLostFocusTxtThreadID()
         {
-            TextBox textBox = (TextBox)sender;
-            textBox.IsReadOnly = true;
-            textBox.BorderThickness = new Thickness(0);
+            TextBox textBox = this.txtThreadID;
 
-            if (string.IsNullOrEmpty(textBox.Text))
+            if (textBox.IsReadOnly)
             {
-                textBox.Text = Properties.Settings.Default.default_thread_id;
+                // do nothing
             }
-            if (threadID != textBox.Text)
+            else
             {
-                threadID = textBox.Text;
-                last = DateTime.Now.ToString(YYYYMMDD);
+                textBox.SelectionLength = 0;
+                textBox.IsReadOnly = true;
+                textBox.BorderThickness = new Thickness(0);
 
-                isChangedThreadID = true;
+                if (string.IsNullOrEmpty(textBox.Text))
+                {
+                    textBox.Text = Properties.Settings.Default.default_thread_id;
+                }
+                if (threadID != textBox.Text)
+                {
+                    threadID = textBox.Text;
+                    last = DateTime.Now.ToString(YYYYMMDD);
+
+                    isChangedThreadID = true;
+                }
             }
         }
         /// <summary>
@@ -234,7 +239,7 @@ namespace AnonymousCommentSystemViewer
         /// <param name="e"></param>
         private void LostFocusTxtThreadID(object sender, KeyboardFocusChangedEventArgs e)
         {
-            OnLostFocusTxtThreadID(sender);
+            OnLostFocusTxtThreadID();
         }
         /// <summary>
         /// 
@@ -245,9 +250,22 @@ namespace AnonymousCommentSystemViewer
         {
             if (e.Key == Key.Enter)
             {
-                OnLostFocusTxtThreadID(sender);
+                OnLostFocusTxtThreadID();
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="parameters"></param>
+        private static void Debug(string message, params object[] parameters)
+        {
+#if DEBUG
+            string msg = string.Format(message, parameters);
+            string now = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff");
+            Console.WriteLine("[Debug]({0}) {1}", now, msg);
+#endif
+        } 
     }
 }
