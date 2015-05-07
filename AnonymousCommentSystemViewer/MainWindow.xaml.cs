@@ -33,18 +33,18 @@ namespace AnonymousCommentSystemViewer
         /// <summary></summary>
         private readonly double fontSize;
         /// <summary></summary>
-        private readonly int speed;
+        public int speed;
         /// <summary></summary>
         private readonly FontFamily fontFamily;
         /// <summary></summary>
-        private string threadID;
+        public string threadID;
         /// <summary></summary>
         private string last;
 
         /// <summary>
         /// 
         /// </summary>
-        private static bool isChangedThreadID = false;
+        private bool isChangedThreadID = false;
 
         /// <summary>
         /// 
@@ -158,6 +158,7 @@ namespace AnonymousCommentSystemViewer
         /// <param name="e"></param>
         private void ClosingWindow(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            Properties.Settings.Default.opacity = this.BaseCanvas.Background.Opacity;
             Properties.Settings.Default.Window_Left = Left;
             Properties.Settings.Default.Window_Top = Top;
             Properties.Settings.Default.Window_Width = Width;
@@ -257,6 +258,17 @@ namespace AnonymousCommentSystemViewer
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenConfigWindow(object sender, RoutedEventArgs e)
+        {
+            ConfigWindow configWindow = new ConfigWindow(this);
+            configWindow.ShowDialog();
+        } 
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="message"></param>
         /// <param name="parameters"></param>
         private static void Debug(string message, params object[] parameters)
@@ -266,6 +278,7 @@ namespace AnonymousCommentSystemViewer
             string now = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff");
             Console.WriteLine("[Debug]({0}) {1}", now, msg);
 #endif
-        } 
+        }
+
     }
 }

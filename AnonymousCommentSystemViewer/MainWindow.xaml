@@ -20,6 +20,14 @@
     <Border BorderBrush="Black" BorderThickness="1">
         <Grid>
             <Canvas x:Name="BaseCanvas">
+                <ContextMenuService.ContextMenu >
+                    <ContextMenu>
+                        <MenuItem Header="設定" Click="OpenConfigWindow" />
+                        <MenuItem Header="このアプリケーションについて" />
+                        <Separator />
+                        <MenuItem Header="終了" Click="ClickBtnClose" />
+                    </ContextMenu>
+                </ContextMenuService.ContextMenu>
                 <TextBox x:Name="txtThreadID" Height="16" Canvas.Top="1" Canvas.Left="3" TextWrapping="Wrap"
                          Text="ThreadID"
                          Background="Transparent" Foreground="White" BorderThickness="0"
