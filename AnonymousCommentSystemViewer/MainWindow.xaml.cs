@@ -106,7 +106,7 @@ namespace AnonymousCommentSystemViewer
                     return;
                 }
 
-                List<Comment> commentList = CommentsRequest.getCommentList(this.txtThreadID.Text, last);
+                List<Comment> commentList = CommentsRequest.getCommentList(threadID, last);
                 if (commentList.Count == 0)
                 {
                     return;
@@ -205,18 +205,26 @@ namespace AnonymousCommentSystemViewer
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
         private static void OnLostFocusTxtThreadID(object sender)
         {
             TextBox textBox = (TextBox)sender;
             textBox.IsReadOnly = true;
             textBox.BorderThickness = new Thickness(0);
 
+            if (string.IsNullOrEmpty(textBox.Text))
+            {
+                textBox.Text = Properties.Settings.Default.default_thread_id;
+            }
             if (threadID != textBox.Text)
             {
-                isChangedThreadID = true;
-
                 threadID = textBox.Text;
                 last = DateTime.Now.ToString(YYYYMMDD);
+
+                isChangedThreadID = true;
             }
         }
         /// <summary>
