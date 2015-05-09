@@ -1,7 +1,8 @@
 ﻿<Window x:Class="AnonymousCommentSystemViewer.ConfigWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="設定" Height="300" Width="400"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="設定" Height="390" Width="400"
         WindowStartupLocation="CenterScreen"
         SnapsToDevicePixels="True"
         WindowStyle="None"
@@ -27,36 +28,7 @@
                 <!--<Button x:Name="BtnClose" Content="r"
                         Style="{DynamicResource CaptionButtonStyleKey}" Click="ClickBtnClose" />-->
             </StackPanel>
-            <TextBlock Margin="30,80,0,0" Padding="0,0,0,0" TextAlignment="Right"
-                   VerticalAlignment="Top" Foreground="White" Height="20" Width="110" HorizontalAlignment="Left">スレッドID</TextBlock>
-            <TextBox x:Name="TxtThreadID" HorizontalAlignment="Left"
-                     Width="150" Height="20"
-                     Margin="150,80,0,0"
-                     TextWrapping="NoWrap" Text="default"
-                     VerticalAlignment="Top"
-                     Background="#FF111111" BorderBrush="#FF444444" Foreground="White" TextChanged="hasChanged"/>
-            <TextBlock Margin="30,115,0,0" Padding="0,0,0,0" TextAlignment="Right"
-            	VerticalAlignment="Top" Foreground="White" Height="20" Width="110" HorizontalAlignment="Left">スレッドの最初から表示</TextBlock>
-            <TextBlock Margin="30,150,0,0" Padding="0,0,0,0" TextAlignment="Right"
-            	VerticalAlignment="Top" Foreground="White" Height="20" Width="110" HorizontalAlignment="Left">スクロールスピード</TextBlock>
-            <TextBlock Margin="30,185,0,0" Padding="0,0,0,0" TextAlignment="Right"
-            	VerticalAlignment="Top" Foreground="White" Height="20" Width="110" HorizontalAlignment="Left">不透明度</TextBlock>
-            <CheckBox x:Name="ChkFromBeginning" Content="" HorizontalAlignment="Left" Margin="150,117,0,0" VerticalAlignment="Top" Click="hasChanged"/>
-            <Label Content="※再起動後に有効になります" Margin="175,115,0,0" Padding="0,0,0,0"
-            	VerticalAlignment="Top" Foreground="DarkGray" Height="20" Width="140" HorizontalAlignment="Left"/>
-            <Slider Name="SliderSpeed" HorizontalAlignment="Left" Margin="150,150,0,0" VerticalAlignment="Top"
-                    Width="100" Height="20" Minimum="1" Maximum="15" SmallChange="1" LargeChange="1" Value="5"
-                    IsSnapToTickEnabled="True" ValueChanged="hasChanged"/>
-            <Label Content="{Binding ElementName=SliderSpeed, Path=Value}" Margin="255,150,0,0" Padding="0,0,0,0"
-                VerticalAlignment="Top" Foreground="White" Height="20" Width="40" HorizontalAlignment="Left" />
-            <Slider x:Name="SliderOpacity" HorizontalAlignment="Left" Margin="150,185,0,0" VerticalAlignment="Top"
-                    Width="189" Height="20" Minimum="1" Maximum="100" SmallChange="1" LargeChange="10" Value="70"
-                    IsSnapToTickEnabled="True" ValueChanged="hasChanged"/>
-            <Label Content="{Binding Value, ElementName=SliderOpacity}" Margin="344,185,0,0" Padding="0,0,0,0"
-            	VerticalAlignment="Top" Foreground="White" Height="20" Width="40" HorizontalAlignment="Left" />
-            <Button x:Name="BtnOK" Content="OK" Click="ClickBtnOK" Margin="80,0,250,30" Height="19" VerticalAlignment="Bottom" />
-            <Button x:Name="BtnCancel" Content="キャンセル" Click="ClickBtnCancel" Margin="160,0,160,30" VerticalAlignment="Bottom" />
-            <Button x:Name="BtnApply" Content="適用" Click="ClickBtnApply" Margin="250,0,80,30" VerticalAlignment="Bottom" IsEnabled="False" />
+
             <TextBlock Margin="10,20,10,0" Padding="0,0,0,0" TextAlignment="Center"
             	VerticalAlignment="Top" Foreground="White" Height="40">
                 Anonymouse Comment System (viewer)
@@ -64,6 +36,72 @@
                 設定
             </TextBlock>
 
+            <TextBlock Margin="30,80,0,0" Padding="0,0,0,0" TextAlignment="Right"
+                       VerticalAlignment="Top" Foreground="White" Height="20" Width="110"
+                       HorizontalAlignment="Left">スレッドID</TextBlock>
+            <TextBox x:Name="TxtThreadID" HorizontalAlignment="Left"
+                     Width="150" Height="20"
+                     Margin="150,80,0,0"
+                     TextWrapping="NoWrap" Text="default"
+                     VerticalAlignment="Top"
+                     Background="#FF111111" BorderBrush="#FF444444" Foreground="White" TextChanged="hasChanged"/>
+
+            <TextBlock Margin="30,115,0,0" Padding="0,0,0,0" TextAlignment="Right"
+                       VerticalAlignment="Top" Foreground="White" Height="20" Width="110"
+                       HorizontalAlignment="Left">スレッドの最初から表示</TextBlock>
+            <CheckBox x:Name="ChkFromBeginning" Content="" Margin="150,117,0,0"
+                      HorizontalAlignment="Left" VerticalAlignment="Top" Click="hasChanged"/>
+            <Label Margin="175,115,0,0" Padding="0,0,0,0" Foreground="DarkGray" Height="20" Width="140"
+                   HorizontalAlignment="Left" VerticalAlignment="Top">※再起動後に有効になります</Label>
+
+            <TextBlock Margin="30,150,0,0" Padding="0,0,0,0" TextAlignment="Right"
+                       VerticalAlignment="Top" Foreground="White" Height="20" Width="110"
+                       HorizontalAlignment="Left">スクロールスピード</TextBlock>
+            <Slider Name="SliderSpeed" HorizontalAlignment="Left" Margin="150,150,0,0" VerticalAlignment="Top"
+                    Width="100" Height="20" Minimum="1" Maximum="15" SmallChange="1" LargeChange="1" Value="5"
+                    IsSnapToTickEnabled="True" ValueChanged="hasChanged"/>
+            <Label Content="{Binding ElementName=SliderSpeed, Path=Value}" Margin="255,150,0,0" Padding="0,0,0,0"
+                   VerticalAlignment="Top" Foreground="White" Height="20" Width="40" HorizontalAlignment="Left" />
+
+            <TextBlock Margin="30,185,0,0" Padding="0,0,0,0" TextAlignment="Right"
+                       VerticalAlignment="Top" Foreground="White" Height="20" Width="110"
+                       HorizontalAlignment="Left">不透明度</TextBlock>
+            <Slider x:Name="SliderOpacity" HorizontalAlignment="Left" Margin="150,185,0,0" VerticalAlignment="Top"
+                    Width="189" Height="20" Minimum="1" Maximum="100" SmallChange="1" LargeChange="10" Value="70"
+                    IsSnapToTickEnabled="True" ValueChanged="hasChanged"/>
+            <Label Content="{Binding Value, ElementName=SliderOpacity}" Margin="344,185,0,0" Padding="0,0,0,0"
+                   VerticalAlignment="Top" Foreground="White" Height="20" Width="40" HorizontalAlignment="Left" />
+
+            <TextBlock Margin="30,220,0,0" Padding="0,0,0,0" TextAlignment="Right"
+                       VerticalAlignment="Top" Foreground="White" Height="20" Width="110"
+                       HorizontalAlignment="Left">フォントサイズ</TextBlock>
+            <Slider x:Name="SliderFontSize" HorizontalAlignment="Left" Margin="150,220,0,0" VerticalAlignment="Top"
+                    Width="189" Height="20" Minimum="10" Maximum="80" SmallChange="1" LargeChange="10" Value="30"
+                    IsSnapToTickEnabled="True" ValueChanged="hasChanged"/>
+            <Label Content="{Binding Value, ElementName=SliderFontSize}" Margin="344,220,0,0" Padding="0,0,0,0"
+                   VerticalAlignment="Top" Foreground="White" Height="20" Width="40"
+                   HorizontalAlignment="Left" />
+
+            <TextBlock Margin="30,255,0,0" Padding="0,0,0,0" TextAlignment="Right"
+                       VerticalAlignment="Top" Foreground="White" Height="20" Width="110"
+                       HorizontalAlignment="Left" Text="文字色"/>
+            <xctk:ColorPicker x:Name="ColorPickerForeground"
+                              VerticalAlignment="Top" Margin="150,253,192,0" SelectedColor="White"
+                              SelectedColorChanged="hasChanged"/>
+
+            <TextBlock Margin="30,290,0,0" Padding="0,0,0,0" TextAlignment="Right"
+                       VerticalAlignment="Top" Foreground="White" Height="20" Width="110"
+                       HorizontalAlignment="Left" Text="背景色"/>
+            <xctk:ColorPicker x:Name="ColorPickerBackground"
+                              VerticalAlignment="Top" Margin="150,288,192,0" SelectedColor="Black"
+                              SelectedColorChanged="hasChanged" />
+
+            <Button x:Name="BtnOK" Content="OK" Click="ClickBtnOK"
+                    Margin="80,0,250,30" Height="19" VerticalAlignment="Bottom" />
+            <Button x:Name="BtnCancel" Content="キャンセル" Click="ClickBtnCancel"
+                    Margin="160,0,160,30" VerticalAlignment="Bottom" />
+            <Button x:Name="BtnApply" Content="適用" Click="ClickBtnApply"
+                    Margin="250,0,80,30" VerticalAlignment="Bottom" IsEnabled="False" />
         </Grid>
     </Border>
 </Window>

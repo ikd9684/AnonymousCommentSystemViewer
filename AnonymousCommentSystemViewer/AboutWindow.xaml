@@ -1,7 +1,7 @@
 ﻿<Window x:Class="AnonymousCommentSystemViewer.AboutWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="このアプリケーションについて" Height="250" Width="400"
+        Title="このアプリケーションについて" Height="350" Width="400"
         WindowStartupLocation="CenterScreen"
         SnapsToDevicePixels="True"
         WindowStyle="None"
@@ -37,15 +37,26 @@
                 Created by ikd9684
             </TextBlock>
             <TextBlock Margin="10,90,10,0" Padding="0,0,0,0" Height="20"  Foreground="White"
+            	TextAlignment="Center" VerticalAlignment="Top" Text="License"/>
+            <TextBlock Margin="10,120,10,0" Padding="0,0,0,0" Height="80"  Foreground="White"
             	TextAlignment="Center" VerticalAlignment="Top">
-                以下のライブラリを使用しています。
-            </TextBlock>
-            <TextBlock Margin="10,120,10,0" Padding="0,0,0,0" Height="40"  Foreground="White"
-            	TextAlignment="Center" VerticalAlignment="Top">
-                DynamicJson
+                DynamicJson 1.2.0.0
                 <LineBreak/>
-                <Hyperlink NavigateUri="https://dynamicjson.codeplex.com/"
-                           RequestNavigate="ClickHyperlink">https://dynamicjson.codeplex.com/</Hyperlink>
+                created and maintained by neuecc &lt;ils@neue.cc&gt;
+                <LineBreak/>
+                licensed under Microsoft Public License(Ms-PL)
+                <LineBreak/>
+                <Hyperlink NavigateUri="https://dynamicjson.codeplex.com/" RequestNavigate="ClickHyperlink">https://dynamicjson.codeplex.com/</Hyperlink>
+            </TextBlock>
+            <TextBlock Margin="10,205,10,0" Padding="0,0,0,0" Height="80"  Foreground="White"
+            	TextAlignment="Center" VerticalAlignment="Top">
+                Extended WPF Toolkit 2.4.0
+                <LineBreak/>
+                © 2007-2013 Xceed Software Inc.
+                <LineBreak/>
+                licensed under Microsoft Public License(Ms-PL)
+                <LineBreak/>
+                <Hyperlink NavigateUri="http://wpftoolkit.codeplex.com/" RequestNavigate="ClickHyperlink">http://wpftoolkit.codeplex.com/</Hyperlink>
             </TextBlock>
         </Grid>
     </Border>

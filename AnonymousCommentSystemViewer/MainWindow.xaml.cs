@@ -26,18 +26,27 @@ namespace AnonymousCommentSystemViewer
     {
         /// <summary></summary>
         private const string YYYYMMDD = "yyyy/MM/dd HH:mm:ss.fff";
+        private const double MAX_FONT_SIZE = 80;
 
         /// <summary></summary>
-        private DispatcherTimer timer = null;
-
-        /// <summary></summary>
-        private readonly double fontSize;
+        public string threadID;
         /// <summary></summary>
         public int speed;
         /// <summary></summary>
-        private readonly FontFamily fontFamily;
+        public double opacity;
         /// <summary></summary>
-        public string threadID;
+        private FontFamily fontFamily;
+        /// <summary></summary>
+        public double fontSize;
+        /// <summary></summary>
+        public Color commentForeground;
+        /// <summary></summary>
+        public Color commentBackground;
+
+        /// <summary></summary>
+        private DispatcherTimer timer;
+        /// <summary></summary>
+        private List<TextBlock> textBockList;
         /// <summary></summary>
         private string last;
 
@@ -54,6 +63,7 @@ namespace AnonymousCommentSystemViewer
             InitializeComponent();
 
             fontSize = Properties.Settings.Default.font_size;
+
             speed = Properties.Settings.Default.speed;
             fontFamily = new FontFamily(Properties.Settings.Default.font_family);
 
@@ -69,9 +79,10 @@ namespace AnonymousCommentSystemViewer
             this.MouseLeftButtonDown += (sender, e) => this.DragMove();
             this.MouseLeftButtonDown += (sender, e) => this.OnLostFocusTxtThreadID();
 
-            Brush BK = Brushes.Black.Clone();
-            BK.Opacity = Properties.Settings.Default.opacity;
-            this.BaseCanvas.Background = BK;
+            commentForeground = Properties.Settings.Default.foreground;
+            commentBackground = Properties.Settings.Default.background;
+
+            opacity = Properties.Settings.Default.opacity;
 
             Left = Properties.Settings.Default.Window_Left;
             Top = Properties.Settings.Default.Window_Top;
@@ -81,7 +92,28 @@ namespace AnonymousCommentSystemViewer
             threadID = Properties.Settings.Default.thread_id;
             this.txtThreadID.Text = threadID;
 
+            textBockList = new List<TextBlock>();
+            RedrawWindow();
             StartEnqueueCommentLoop();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void RedrawWindow()
+        {
+            this.Height = 20 + fontSize * 1.3;
+            this.MaxHeight = this.Height;
+            this.MinHeight = this.Height;
+
+            this.BaseCanvas.Background = new SolidColorBrush(commentBackground);
+            this.BaseCanvas.Background.Opacity = opacity;
+
+            foreach (TextBlock textBlock in textBockList)
+            {
+                textBlock.FontSize = fontSize;
+                textBlock.Foreground = new SolidColorBrush(commentForeground);
+            }
         }
 
         /// <summary>
@@ -122,20 +154,21 @@ namespace AnonymousCommentSystemViewer
                     textBlock.FontFamily = fontFamily;
                     textBlock.FontSize = fontSize;
                     textBlock.Text = commentString.Trim();
-                    textBlock.Foreground = Brushes.White;
+                    textBlock.Foreground = new SolidColorBrush(commentForeground);
                     this.BaseCanvas.Children.Add(textBlock);
+                    textBockList.Add(textBlock);
 
                     TranslateTransform transform = new TranslateTransform(this.Width, 16);
 
-                    int durationTime = ((int)this.Width + commentString.Length * (int)fontSize) * speed;
+                    double durationTime = (this.Width + commentString.Length * MAX_FONT_SIZE) * speed;
 
                     textBlock.RenderTransform = transform;
                     Duration duration = new Duration(TimeSpan.FromMilliseconds(durationTime));
-                    DoubleAnimation animationX = new DoubleAnimation(-1 * (commentString.Length + 1) * fontSize, duration);
+                    DoubleAnimation animationX = new DoubleAnimation(-1 * (commentString.Length + 1) * MAX_FONT_SIZE, duration);
 
                     transform.BeginAnimation(TranslateTransform.XProperty, animationX);
 
-                    await Task.Delay(durationTime - ((int)this.Width / 2 * speed));
+                    await Task.Delay((int)(durationTime - (this.Width / 2 * speed)));
 
                     if (isChangedThreadID)
                     {

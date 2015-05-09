@@ -94,18 +94,6 @@ namespace AnonymousCommentSystemViewer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
-        public double font_size {
-            get {
-                return ((double)(this["font_size"]));
-            }
-            set {
-                this["font_size"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("8")]
         public int speed {
             get {
@@ -113,18 +101,6 @@ namespace AnonymousCommentSystemViewer.Properties {
             }
             set {
                 this["speed"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("メイリオ")]
-        public string font_family {
-            get {
-                return ((string)(this["font_family"]));
-            }
-            set {
-                this["font_family"] = value;
             }
         }
         
@@ -149,6 +125,54 @@ namespace AnonymousCommentSystemViewer.Properties {
             }
             set {
                 this["since_startup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("メイリオ")]
+        public string font_family {
+            get {
+                return ((string)(this["font_family"]));
+            }
+            set {
+                this["font_family"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public double font_size {
+            get {
+                return ((double)(this["font_size"]));
+            }
+            set {
+                this["font_size"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FFFFFFFF")]
+        public global::System.Windows.Media.Color foreground {
+            get {
+                return ((global::System.Windows.Media.Color)(this["foreground"]));
+            }
+            set {
+                this["foreground"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF000000")]
+        public global::System.Windows.Media.Color background {
+            get {
+                return ((global::System.Windows.Media.Color)(this["background"]));
+            }
+            set {
+                this["background"] = value;
             }
         }
     }

@@ -35,6 +35,12 @@ namespace AnonymousCommentSystemViewer
             this.ChkFromBeginning.IsChecked = !Properties.Settings.Default.since_startup;
             this.SliderSpeed.Value = (int)this.SliderSpeed.Maximum + 1 - owner.speed;
             this.SliderOpacity.Value = owner.BaseCanvas.Background.Opacity * 100;
+
+            this.SliderFontSize.Value = owner.fontSize;
+            this.ColorPickerForeground.SelectedColor = owner.commentForeground;
+            this.ColorPickerBackground.SelectedColor = owner.commentBackground;
+
+            this.BtnApply.IsEnabled = false;
         }
 
         /// <summary>
@@ -50,7 +56,7 @@ namespace AnonymousCommentSystemViewer
         /// <summary>
         /// 
         /// </summary>
-        private void SaveSettings()
+        private void ApplySettings()
         {
             // スレッドID
             string threadID = this.TxtThreadID.Text;
@@ -60,21 +66,25 @@ namespace AnonymousCommentSystemViewer
             }
             owner.threadID = threadID;
             owner.txtThreadID.Text = threadID;
-            Properties.Settings.Default.thread_id = threadID;
 
             // スレッドの最初から表示
             Properties.Settings.Default.since_startup = (this.ChkFromBeginning.IsChecked == false);
 
             // スクロールスピード
             owner.speed = (int)this.SliderSpeed.Maximum + 1 - (int)this.SliderSpeed.Value;
-            Properties.Settings.Default.speed = owner.speed;
 
             // 透明度
-            owner.BaseCanvas.Background.Opacity = this.SliderOpacity.Value / 100;
-            Properties.Settings.Default.opacity = owner.BaseCanvas.Background.Opacity;
+            owner.opacity = this.SliderOpacity.Value / 100;
 
-            // 保存
-            Properties.Settings.Default.Save();
+            // フォントサイズ
+            owner.fontSize = this.SliderFontSize.Value;
+
+            // 文字色
+            owner.commentForeground = this.ColorPickerForeground.SelectedColor;
+            // 背景色
+            owner.commentBackground = this.ColorPickerBackground.SelectedColor;
+
+            owner.RedrawWindow();
         }
 
         /// <summary>
@@ -84,7 +94,7 @@ namespace AnonymousCommentSystemViewer
         /// <param name="e"></param>
         private void ClickBtnOK(object sender, RoutedEventArgs e)
         {
-            SaveSettings();
+            ApplySettings();
             this.Close();
         }
 
@@ -105,7 +115,7 @@ namespace AnonymousCommentSystemViewer
         /// <param name="e"></param>
         private void ClickBtnApply(object sender, RoutedEventArgs e)
         {
-            SaveSettings();
+            ApplySettings();
             this.BtnApply.IsEnabled = false;
         }
 
@@ -141,6 +151,19 @@ namespace AnonymousCommentSystemViewer
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void hasChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (this.BtnApply != null)
+            {
+                this.BtnApply.IsEnabled = true;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void hasChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
             if (this.BtnApply != null)
             {

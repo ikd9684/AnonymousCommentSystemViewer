@@ -20,20 +20,26 @@
     <Setting Name="Window_Width" Type="System.Double" Scope="User">
       <Value Profile="(Default)">600</Value>
     </Setting>
-    <Setting Name="font_size" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">30</Value>
-    </Setting>
     <Setting Name="speed" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">8</Value>
-    </Setting>
-    <Setting Name="font_family" Type="System.String" Scope="User">
-      <Value Profile="(Default)">メイリオ</Value>
     </Setting>
     <Setting Name="opacity" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0.7</Value>
     </Setting>
     <Setting Name="since_startup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="font_family" Type="System.String" Scope="User">
+      <Value Profile="(Default)">メイリオ</Value>
+    </Setting>
+    <Setting Name="font_size" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
+    <Setting Name="foreground" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FFFFFFFF</Value>
+    </Setting>
+    <Setting Name="background" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF000000</Value>
     </Setting>
   </Settings>
 </SettingsFile>
